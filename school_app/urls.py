@@ -27,4 +27,3 @@ urlpatterns = [
     path('test/', fake_data),
 
 ]
-# pip install djangorestframework==3.14.0

@@ -17,15 +17,12 @@ def fake_data(request):
     c2 = Class.objects.create(name="清华班")
     c3 = Class.objects.create(name="北大班")
     c1 = Class.objects.create(name="少年班")
-
     Student.objects.create(name='刘德华', gender='M',student_id='111',class_name=c1)
     Student.objects.create(name='郭德纲', gender='M',student_id='122',class_name=c1)
     Student.objects.create(name='孙悟空', gender='M', student_id='133', class_name=c1)
-
     Student.objects.create(name='张大大', gender='M', student_id='144', class_name=c2)
     Student.objects.create(name='李小龙', gender='M', student_id='155', class_name=c2)
     Student.objects.create(name='孙博世', gender='M', student_id='166', class_name=c3)
-
     return HttpResponse("Hello, world. You're at the")
 
 
@@ -95,13 +92,11 @@ class StudentByNameView(APIView):
         name = request.query_params.get('name')
         if not name:
             return Response({'error': 'name is required'}, status=status.HTTP_400_BAD_REQUEST)
-
         cache_key = f'student_info:{name}'
         cached_data = cache.get(cache_key)
         if cached_data:
             student = json.loads(cached_data)
             return Response(student)
-
         try:
             student = Student.objects.select_related('class_name').get(name=name)
         except Student.DoesNotExist:
@@ -110,8 +105,9 @@ class StudentByNameView(APIView):
         serializer = StudentSerializer(student)
         data = serializer.data
 
-        cache.set(cache_key, json.dumps(data), )
+        cache.set(cache_key, json.dumps(data))
         return Response(data)
+
 class StudentCreateView(APIView):
     serializer_class = StudentSerializer
 
@@ -139,7 +135,6 @@ class StudentCreateView(APIView):
             students.append(StudentSerializer(student).data)
             cache.set(cache_key_class, json.dumps(students), )
 
-        # 更新学生信息缓存
         cache_key_student = f'student_info:{student.name}'
         cache.set(cache_key_student, json.dumps(StudentSerializer(student).data), )
 

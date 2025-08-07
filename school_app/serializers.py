@@ -11,9 +11,9 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ['id', 'name', 'gender', 'student_id', 'class_names', 'class_name']
-        # fields = ['id', 'name', 'gender', "student_id",'class_names']
 
 
+# 第二种方法
 # class StudentSerializer(serializers.ModelSerializer):
 #     class_name_name = serializers.SerializerMethodField()
 #

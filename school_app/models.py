@@ -20,5 +20,3 @@ class Student(models.Model):
 
     def __str__(self):
         return self.name
-#python manage.py makemigrations
-# python manage.py migrate
