@@ -25,14 +25,11 @@ schema_view = get_schema_view(
    openapi.Info(
       title="School API",
       default_version='v1',
-      description="学校管理系统API文档",
-      terms_of_service="https://www.example.com/terms/",
-      contact=openapi.Contact(email="contact@example.com"),
-      license=openapi.License(name="BSD License"),
+      description="学校管理系统API文档1",
+      terms_of_service="xxxx",
    ),
    public=True,
    permission_classes=[permissions.AllowAny],
-   # permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
